@@ -1,0 +1,14 @@
+/Users/jerina/Projects/marudhu/marudhu/marudhu/bin/Debug/net5.0/marudhu.deps.json
+/Users/jerina/Projects/marudhu/marudhu/marudhu/bin/Debug/net5.0/marudhu.runtimeconfig.json
+/Users/jerina/Projects/marudhu/marudhu/marudhu/bin/Debug/net5.0/marudhu.runtimeconfig.dev.json
+/Users/jerina/Projects/marudhu/marudhu/marudhu/bin/Debug/net5.0/marudhu.dll
+/Users/jerina/Projects/marudhu/marudhu/marudhu/bin/Debug/net5.0/ref/marudhu.dll
+/Users/jerina/Projects/marudhu/marudhu/marudhu/bin/Debug/net5.0/marudhu.pdb
+/Users/jerina/Projects/marudhu/marudhu/marudhu/obj/Debug/net5.0/marudhu.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jerina/Projects/marudhu/marudhu/marudhu/obj/Debug/net5.0/marudhu.AssemblyInfoInputs.cache
+/Users/jerina/Projects/marudhu/marudhu/marudhu/obj/Debug/net5.0/marudhu.AssemblyInfo.cs
+/Users/jerina/Projects/marudhu/marudhu/marudhu/obj/Debug/net5.0/marudhu.csproj.CoreCompileInputs.cache
+/Users/jerina/Projects/marudhu/marudhu/marudhu/obj/Debug/net5.0/marudhu.dll
+/Users/jerina/Projects/marudhu/marudhu/marudhu/obj/Debug/net5.0/ref/marudhu.dll
+/Users/jerina/Projects/marudhu/marudhu/marudhu/obj/Debug/net5.0/marudhu.pdb
+/Users/jerina/Projects/marudhu/marudhu/marudhu/obj/Debug/net5.0/marudhu.genruntimeconfig.cache
