@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -7,28 +8,98 @@ namespace ConsoleApp1
 {
     class Program
     {
+        private static List<EncryptionResult> EncryptionResult = new List<EncryptionResult>();
 
         static void Main(string[] args)
         {
-            
-            //string source = "hi i am cool";
-            Console.WriteLine("Please enter a string");
+            //till 9x9 matrix working
+            //string input = "hi i am cool";
 
-            string source = Console.ReadLine();
+            //16x16 matrix
+            string input = "Writers write descriptive paragraphs because their purpose is to describe something. Their point is that something is beautiful or disgusting or strangely intriguing. Writers write persuasive and argument paragraphs because their purpose is to persuade or convince someone. Their point is that their reader should see things a particular way and possibly take action on that new way of seeing things. Writers write paragraphs of comparison because the comparison will make their point clear to their readers. Writers write descriptive paragraphs because their purpose is to describe something. Their point is that something is beautiful or disgusting or strangely intriguing. Writers write persuasive and argument paragraphs because their purpose is to persuade or convince someone. Their point is that their reader should see things a particular way and possibly take action on that new way of seeing things. Writers write paragraphs of comparison because the comparison will make their point clear to their readers.";
 
-            var encryptionResult = Encrypt(source);
+            //encrypt
+            Encryption(input);
 
-            Console.WriteLine($"encrypted result {encryptionResult.Result}");
+            //decrypt
+            Decryption(EncryptionResult);
 
-            Console.WriteLine($"Decryption starts");
-
-            Decrpt(encryptionResult);
 
             Console.ReadKey();
-            
+
+            //Console.WriteLine("Please enter a string");
+
+            //string source = Console.ReadLine();
+
         }
 
-        private static void Decrpt(EncryptionResult encryptionResult)
+        private static void Encryption(string source)
+        {
+
+
+            IEnumerable<string> s = SplitByLength(source, 256);
+
+            //convert IEnumerable to List
+            List<string> list = new List<string>(s);
+
+
+            List<string> en = new List<string>();
+
+            en.Clear();
+            EncryptionResult.Clear();
+
+            foreach (string input in list)
+            {
+                Console.WriteLine(input);
+
+                var encryptionResult = Encrypt(input);
+
+
+                //Output String
+                en.Add(encryptionResult.Result);
+
+                //Output EncryptionResult
+                EncryptionResult.Add(encryptionResult);
+
+                //Console.WriteLine($"encrypted result {encryptionResult.Result}");
+
+                //Console.WriteLine($"Decryption starts");
+
+                //Decrpt(encryptionResult);
+
+            }
+            var result = String.Join("", en.ToArray());
+
+            Console.WriteLine(result);
+        }
+
+        private static void Decryption(List<EncryptionResult> el)
+        {
+            List<string> de = new List<string>();
+            de.Clear();
+
+            foreach (EncryptionResult l in el)
+            {
+                //Console.WriteLine(l);
+
+               string decryptionResult = Decrpt(l);
+
+                de.Add(decryptionResult);
+
+               //// Console.WriteLine($"encrypted result {encryptionResult.Result}");
+
+                ////Console.WriteLine($"Decryption starts");
+
+                ////Decrpt(encryptionResult);
+            }
+
+            var result = String.Join("", de.ToArray());
+
+            Console.WriteLine(result);
+
+        }
+
+            private static string Decrpt(EncryptionResult encryptionResult)
         {
             var watch = new System.Diagnostics.Stopwatch();
 
@@ -98,10 +169,11 @@ namespace ConsoleApp1
 
             Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds / 1000} s");
 
+                return result;
 
             //Console.ReadLine();
 
-        }
+            }
 
         private static EncryptionResult Encrypt(string source)
         {
@@ -112,9 +184,11 @@ namespace ConsoleApp1
 
             EncryptionResult result = new EncryptionResult();
 
-            string textWithoutSpaces = Regex.Replace(source, @"\s+", "Þ");
+            //TODO: To update space with x character - should not have alphanumeric in decryption
+            string textWithoutSpaces = Regex.Replace(source, @"\s+", "Þ");//change
 
             Console.WriteLine(textWithoutSpaces.Length);
+
             int dimension = (int)Math.Ceiling(Math.Sqrt(textWithoutSpaces.Length));
 
             string[,] sourceMatrix = GenerateSquareMatrix(textWithoutSpaces, dimension);
@@ -362,6 +436,7 @@ namespace ConsoleApp1
             return interchangeMatrix;
         }
 
+        //TODO: Update ColumnarTransposition functionlaity to fit 16x16
         private static string[,] ColumnarTransposition(string[,] transposeMatrix, int dimension, string key)
         {
             var columnarTransposition = new string[dimension, dimension];
@@ -372,7 +447,7 @@ namespace ConsoleApp1
             {
                 for (int col = 0; col < dimension; col++)
                 {
-                    columnarTransposition[row, col] = transposeMatrix[row, key.IndexOf(col.ToString())];
+                    columnarTransposition[row, col] = transposeMatrix[row, key.IndexOf(col.ToString())];//Index was outside the bounds of the array
                     columnarSignatureTransposition[row, col] = $"{row}{key.IndexOf(col.ToString())}";
                 }
             }
@@ -400,8 +475,6 @@ namespace ConsoleApp1
             PrintMatrix(dimension, columnarSignatureTransposition);
             return columnarTransposition;
         }
-
-
 
         private static void PrintMatrix(int squareMatrixLength, string[,] sourceMatrix)
         {
@@ -437,6 +510,14 @@ namespace ConsoleApp1
                     matrix[j, i] = temp;
                 }
             return matrix;
+        }
+
+        public static IEnumerable<string> SplitByLength(string str, int maxLength)
+        {
+            for (int index = 0; index < str.Length; index += maxLength)
+            {
+                yield return str.Substring(index, Math.Min(maxLength, str.Length - index));
+            }
         }
     }
 
